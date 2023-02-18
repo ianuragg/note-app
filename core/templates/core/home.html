@@ -1,0 +1,70 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="mb-3 fadefwd">
+    <div class="d-flex justify-content-between mb-4">
+        <span class="sub-header">My Notes</span>
+        <span class="material-symbols-rounded add-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">add</span>
+    </div>
+    <div class="row">
+        {% if notes %}
+        {% for note in notes %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+            <div class="card shadow bg-yel">
+                <div class="card-header py-2 mb-0">
+                    <h5 class="card-text">{{ note.title|title }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text card-desc">{{ note.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <span><small>{{ note.date_added|date:"M d, Y" }}</small></span>
+                        <span>
+                            <span class="material-symbols-rounded delete-icon" onclick="location.href = '{% url 'delete-note' noteID=note.id %}';" title="Delete">delete</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">Add your first note!</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" method="POST">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" name="title">
+                    </div>
+                    <div class="col-12">
+                        <label for="note" class="form-label">Note</label>
+                        <textarea name="desc" class="form-control"></textarea>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary"
+                            style="width: 100%;">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand navbar-light">
+    <div class="container-fluid">
+        {% if user.is_authenticated %}
+        <p class="navbar-brand mb-0 h1">
+            Hi, {{ user.name }}
+        </p>
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-lg-0">
+                <li class="nav-item theme-toggler me-4">
+                    <span class="material-symbols-rounded active-theme">light_mode</span>
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <div class="profile-logo" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">{{ user.name.0 }}</div>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'logout' %}" title="Logout">Logout</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a id="login" href="{% url 'login' %}" title="Login"><button type="button"
+                            class="btn btn-primary btn-sm">Login</button></a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END NAVBAR -->

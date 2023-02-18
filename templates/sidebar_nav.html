@@ -1,0 +1,31 @@
+<div class="navigation toggle-nav" id="nav-bar">
+    <nav class="nav">
+        <div>
+            <div class="side-toggle">
+                <div class="" id="header">
+                    <div class="nav-toggle">
+                        <span class="material-symbols-rounded" id="header-toggle">menu</span>
+                    </div>
+                </div>
+                <a class="fs-4 fw-bold" href="/">NoteApp</a>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="nav_list">
+                <div class="nav_link create-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <span class="nav_icon material-symbols-rounded nav-icon">add</span>
+                    <span>Create</span>
+                </div>
+                <a href="{% url 'logout' %}" class="nav_link">
+                    <span class="nav_icon material-symbols-rounded">logout</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+            {% else %}
+            <a href="{% url 'login' %}" class="nav_link">
+                <span class="nav_icon material-symbols-rounded">login</span>
+                <span>Login</span>
+            </a>
+            {% endif %}
+        </div>
+    </nav>
+</div>
